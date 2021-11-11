@@ -6,30 +6,16 @@
 //
 
 import UIKit
-import Alamofire
 
 class ViewController: UIViewController {
     
-    let URL = "https://joy.yanolja.com/v6-6/leisure/categories/v2"
-
+    var cv: UICollectionView = .init()
+    let model: Model = Model()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let af = AF.request(URL, method: .get)
-        af.responseJSON { res in
-            switch res.result {
-            case .success(let value):
-                if let jsonObj = value as? [Dictionary<String, Any>] {
-                    print(jsonObj)
-                }
-            case .failure(_):
-                break
-            }
-        }
-        
-        view.backgroundColor = .red
     }
-
 
 }
 

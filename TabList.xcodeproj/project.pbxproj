@@ -13,6 +13,7 @@
 		9B0919EB273BFC8C00B9A713 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B0919E9273BFC8C00B9A713 /* Main.storyboard */; };
 		9B0919ED273BFC8E00B9A713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B0919EC273BFC8E00B9A713 /* Assets.xcassets */; };
 		9B0919F0273BFC8E00B9A713 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B0919EE273BFC8E00B9A713 /* LaunchScreen.storyboard */; };
+		9B676D09273D452900C3A667 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B676D08273D452900C3A667 /* Model.swift */; };
 		9BA502ED273C1B1A000ACBF2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA502EC273C1B1A000ACBF2 /* Alamofire */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		9B0919EC273BFC8E00B9A713 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B0919EF273BFC8E00B9A713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B0919F1273BFC8E00B9A713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B676D08273D452900C3A667 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				9B0919E3273BFC8C00B9A713 /* AppDelegate.swift */,
 				9B0919E5273BFC8C00B9A713 /* SceneDelegate.swift */,
 				9B0919E7273BFC8C00B9A713 /* ViewController.swift */,
+				9B676D08273D452900C3A667 /* Model.swift */,
 				9B0919E9273BFC8C00B9A713 /* Main.storyboard */,
 				9B0919EC273BFC8E00B9A713 /* Assets.xcassets */,
 				9B0919EE273BFC8E00B9A713 /* LaunchScreen.storyboard */,
@@ -149,6 +152,7 @@
 				9B0919E8273BFC8C00B9A713 /* ViewController.swift in Sources */,
 				9B0919E4273BFC8C00B9A713 /* AppDelegate.swift in Sources */,
 				9B0919E6273BFC8C00B9A713 /* SceneDelegate.swift in Sources */,
+				9B676D09273D452900C3A667 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
