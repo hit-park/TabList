@@ -9,13 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var cv: UICollectionView = .init()
+//    var cv: UICollectionView = .init(frame: .zero)
     let model: Model = Model()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .blue
     }
 
 }
-
