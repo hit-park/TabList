@@ -19,6 +19,7 @@
 		9B5C1C4727429F870036E3EB /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9B5C1C4627429F870036E3EB /* RxSwift */; };
 		9B676D09273D452900C3A667 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B676D08273D452900C3A667 /* Model.swift */; };
 		9BA502ED273C1B1A000ACBF2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9BA502EC273C1B1A000ACBF2 /* Alamofire */; };
+		9BB2991D2743DBB3003F4379 /* TabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB2991C2743DBB3003F4379 /* TabVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9B0919EF273BFC8E00B9A713 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B0919F1273BFC8E00B9A713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B676D08273D452900C3A667 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		9BB2991C2743DBB3003F4379 /* TabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		9B0919E2273BFC8C00B9A713 /* TabList */ = {
 			isa = PBXGroup;
 			children = (
+				9BB2991E2743DBBD003F4379 /* Tab */,
 				9B0919E3273BFC8C00B9A713 /* AppDelegate.swift */,
 				9B0919E5273BFC8C00B9A713 /* SceneDelegate.swift */,
 				9B0919E7273BFC8C00B9A713 /* ViewController.swift */,
@@ -78,6 +81,14 @@
 				9B0919F1273BFC8E00B9A713 /* Info.plist */,
 			);
 			path = TabList;
+			sourceTree = "<group>";
+		};
+		9BB2991E2743DBBD003F4379 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				9BB2991C2743DBB3003F4379 /* TabVC.swift */,
+			);
+			path = Tab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BB2991D2743DBB3003F4379 /* TabVC.swift in Sources */,
 				9B0919E8273BFC8C00B9A713 /* ViewController.swift in Sources */,
 				9B0919E4273BFC8C00B9A713 /* AppDelegate.swift in Sources */,
 				9B0919E6273BFC8C00B9A713 /* SceneDelegate.swift in Sources */,

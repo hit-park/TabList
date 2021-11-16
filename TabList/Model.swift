@@ -21,7 +21,9 @@ struct ICategoryV2: Equatable, Codable {
 class Model {
     
     private let URL: String = "https://joy.yanolja.com/v6-6/leisure/categories/v2"
-    var entity: [ICategoryV2]?
+    private var entity: [ICategoryV2]?
+    
+    var completion: (([ICategoryV2]) -> Void)?
     
     init() {
         AF.request(URL, method: .get).response { [weak self] res in
@@ -29,8 +31,8 @@ class Model {
             case .success(let data):
                 do {
                     let json = try JSONDecoder().decode([ICategoryV2].self, from: data!)
-                    print(json)
                     self?.entity = json
+                    self?.completion?(json)
                 } catch {
                     print("Error during JSON serialization: \(error.localizedDescription)")
                 }
