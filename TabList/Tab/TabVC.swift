@@ -23,6 +23,7 @@ class TabCell: UICollectionViewCell {
         lbTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
         lbTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         lbTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        lbTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -35,11 +36,12 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
     
     private let cv: UICollectionView = {
         let fl  : UICollectionViewFlowLayout = .init()
-        let _cv : UICollectionView       = .init(frame: .zero, collectionViewLayout: fl)
+        let _cv : UICollectionView           = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
         _cv.backgroundColor = .red
-        fl.estimatedItemSize = CGSize(width: 50, height: 40)
+        fl.estimatedItemSize = CGSize(width: 100, height: 40)
         fl.scrollDirection = .horizontal
+//        fl.minimumLineSpacing = 10
         return _cv
     }()
     
