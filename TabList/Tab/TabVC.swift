@@ -11,19 +11,41 @@ class TabCell: UICollectionViewCell {
 
     let lbTitle: UILabel = {
         let label: UILabel = .init()
-        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .yellow
+        label.textColor = .black
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = .blue
+//        contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(lbTitle)
-        lbTitle.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        lbTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        lbTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        lbTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        lbTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        lbTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
+        lbTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0).isActive = true
+        lbTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0).isActive = true
+        lbTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+//        lbTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        let widthConst = lbTitle.widthAnchor.constraint(equalTo: contentView.widthAnchor)
+//        widthConst.priority = UILayoutPriority(999)
+//        widthConst.isActive = true
+    }
+    
+    static func fittingSize(title: String) -> CGSize {
+//        let tt = UILabel()
+//        tt.text = title
+//        tt.sizeToFit()
+        
+        let calcCell = TabCell()
+        calcCell.lbTitle.text = title
+        let targetSize = CGSize(width: calcCell.lbTitle.intrinsicContentSize.width, height: 40)
+        return calcCell.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .required)
+    }
+    
+        
+    override func prepareForReuse() {
+        lbTitle.text = nil
     }
     
     required init?(coder: NSCoder) {
@@ -32,14 +54,14 @@ class TabCell: UICollectionViewCell {
 
 }
 
-class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private let cv: UICollectionView = {
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : UICollectionView           = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
         _cv.backgroundColor = .red
-        fl.estimatedItemSize = CGSize(width: 100, height: 40)
+//        fl.estimatedItemSize = CGSize(width: 100, height: 40)
         fl.scrollDirection = .horizontal
 //        fl.minimumLineSpacing = 10
         return _cv
@@ -78,5 +100,9 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         else { return UICollectionViewCell() }
         cell.lbTitle.text = info.title
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return TabCell.fittingSize(title: entity?[indexPath.item].title ?? "")
     }
 }
