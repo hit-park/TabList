@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         view.addSubview(tabCV.view)
         tabCV.view.translatesAutoresizingMaskIntoConstraints = false
         tabCV.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

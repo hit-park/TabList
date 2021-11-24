@@ -20,18 +20,17 @@ class TabCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .blue
-        addSubview(lbTitle)
+        contentView.addSubview(lbTitle)
         lbTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         lbTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0).isActive = true
         lbTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0).isActive = true
         lbTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
-        lbTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     static func fittingSize(title: String) -> CGSize {
         let calcCell = TabCell()
         calcCell.lbTitle.text = title
-        let targetSize = CGSize(width: calcCell.lbTitle.intrinsicContentSize.width, height: 40)
+        let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: 40)
         return calcCell.contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .required)
     }
     
