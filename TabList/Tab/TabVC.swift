@@ -12,19 +12,29 @@ class TabCell: UICollectionViewCell {
     let lbTitle: UILabel = {
         let label: UILabel = .init()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .yellow
         label.textColor = .black
         return label
     }()
     
+    private let vUnderline: UIView = {
+        let view: UIView = .init()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .blue
         contentView.addSubview(lbTitle)
+        contentView.addSubview(vUnderline)
         lbTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0).isActive = true
         lbTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0).isActive = true
         lbTitle.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0).isActive = true
-        lbTitle.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+        vUnderline.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: 0).isActive = true
+        vUnderline.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0).isActive = true
+        vUnderline.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0).isActive = true
+        vUnderline.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
+        vUnderline.heightAnchor.constraint(equalToConstant: 2).isActive = true
     }
     
     static func fittingSize(title: String) -> CGSize {
@@ -51,10 +61,18 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : UICollectionView           = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
-        _cv.backgroundColor = .red
+        _cv.backgroundColor = .white
         fl.scrollDirection = .horizontal
-//        fl.minimumLineSpacing = 10
+        fl.minimumInteritemSpacing = 20
+        fl.sectionInset = .init(top: 0, left: 20, bottom: 0, right: 20)
         return _cv
+    }()
+    
+    private let vUnderline: UIView = {
+        let view: UIView = .init()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .init(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
+        return view
     }()
     
     private var entity: [ICategoryV2]?
@@ -66,8 +84,14 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         cv.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         cv.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         cv.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        cv.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         cv.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        view.addSubview(vUnderline)
+        vUnderline.topAnchor.constraint(equalTo: cv.bottomAnchor).isActive = true
+        vUnderline.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        vUnderline.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        vUnderline.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        vUnderline.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         cv.register(TabCell.self, forCellWithReuseIdentifier: "TabCell")
         cv.delegate     = self
