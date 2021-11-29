@@ -20,8 +20,9 @@ struct ICategoryV2: Equatable, Codable {
 
 class Model {
     
-    private let URL: String = "https://joy.yanolja.com/v6-6/leisure/categories/v2"
-    private var entity: [ICategoryV2]?
+    private let URL             : String = "https://joy.yanolja.com/v6-6/leisure/categories/v2"
+    private var entity          : [ICategoryV2]?
+    private var selectedTabIdx  : Int = 0
     
     var completion: (([ICategoryV2]) -> Void)?
     
@@ -40,6 +41,10 @@ class Model {
                 break
             }
         }
+    }
+    
+    func update(tabIdx: Int) {
+        selectedTabIdx = tabIdx
     }
     
 }

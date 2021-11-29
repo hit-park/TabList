@@ -21,9 +21,8 @@ class ViewController: UIViewController {
         tabCV.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tabCV.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
-        model.completion = { [weak self] (res) in
-            self?.tabCV.update(data: res)
-        }
+        model.completion = { [weak self] res in self?.tabCV.update(data: res) }
+        tabCV.selected = { [weak self] idx in self?.model.update(tabIdx: idx) }
     }
 
 }
