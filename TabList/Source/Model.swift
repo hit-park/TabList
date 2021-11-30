@@ -20,11 +20,20 @@ struct ICategoryV2: Equatable, Codable {
 
 class Model {
     
+    enum UpdateType {
+        case Tab
+        case List
+        case All
+    }
+    
     private let URL             : String = "https://joy.yanolja.com/v6-6/leisure/categories/v2"
     private var entity          : [ICategoryV2]?
     private var selectedTabIdx  : Int = 0
     
-    var completion: (([ICategoryV2]) -> Void)?
+    var data    : [ICategoryV2]? { entity }
+    var tabIdx  : Int            { selectedTabIdx }
+    
+    var completion: ((UpdateType) -> Void)?
     
     init() {
         AF.request(URL, method: .get).response { [weak self] res in
@@ -33,7 +42,7 @@ class Model {
                 do {
                     let json = try JSONDecoder().decode([ICategoryV2].self, from: data!)
                     self?.entity = json
-                    self?.completion?(json)
+                    self?.completion?(.All)
                 } catch {
                     print("Error during JSON serialization: \(error.localizedDescription)")
                 }
@@ -43,8 +52,9 @@ class Model {
         }
     }
     
-    func update(tabIdx: Int) {
+    func update(_ type: UpdateType, tabIdx: Int) {
         selectedTabIdx = tabIdx
+        completion?(type)
     }
     
 }

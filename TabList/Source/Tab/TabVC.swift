@@ -50,9 +50,7 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         return view
     }()
     
-    private var entity: [ICategoryV2]?
-    private var selectedTabIdx: Int = 0
-    
+    var model: Model!
     var selected: ((Int) -> Void)?
     
     override func viewDidLoad() {
@@ -79,7 +77,7 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         cv.completion { [weak self] in
             guard
                 let self = self,
-                let frame: CGRect = self.cv.cellForItem(at: .init(item: self.selectedTabIdx, section: 0))?.frame
+                let frame: CGRect = self.cv.cellForItem(at: .init(item: self.model.tabIdx, section: 0))?.frame
             else { return }
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.3) {
@@ -89,38 +87,31 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
     
-    func update(data: [ICategoryV2]) {
-        entity = data
+    func update() {
         cv.reloadData()
     }
-    
-    func update(idx: Int) {
-        selectedTabIdx = idx
-        cv.reloadData()
-    }
-    
+        
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entity?.count ?? 0
+        return model.data?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let info = entity?[indexPath.item],
+            let info = model.data?[indexPath.item],
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabCell", for: indexPath) as? TabCell
         else { return UICollectionViewCell() }
         cell.lbTitle.text = info.title
-        cell.update(isSelected: selectedTabIdx == indexPath.item)
+        cell.update(isSelected: model.tabIdx == indexPath.item)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return TabCell.fittingSize(title: entity?[indexPath.item].title ?? "")
+        return TabCell.fittingSize(title: model.data?[indexPath.item].title ?? "")
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let idx: Int = indexPath.item
-        guard selectedTabIdx != idx else { return }
-        selectedTabIdx = idx
+        guard model.tabIdx != idx else { return }
         selected?(idx)
         cv.reloadData()
     }

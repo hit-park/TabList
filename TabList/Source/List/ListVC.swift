@@ -36,9 +36,7 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         return _cv
     }()
     
-    private var entity: [ICategoryV2]?
-    private var selectedTabIdx: Int = 0
-    
+    var model: Model!
     var scroll: ((Int) -> Void)?
     
     override func viewDidLoad() {
@@ -55,18 +53,17 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         cv.dataSource   = self
     }
     
-    func update(data: [ICategoryV2]) {
-        entity = data
+    func update() {
         cv.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entity?.count ?? 0
+        return model.data?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-//            let info = entity?[indexPath.item],
+//            let info = model.data?[indexPath.item],
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as? ListCell
         else { return UICollectionViewCell() }
         cell.contentView.backgroundColor = getRandomColor()
@@ -84,16 +81,7 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         return CGSize(width: UIScreen.main.bounds.width, height: cv.frame.height)
     }
     
-    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let idx: Int = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-        selectedTabIdx = idx
-        scroll?(idx)
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        let idx: Int = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
-//        selectedTabIdx = idx
-//        scroll?(idx)
+        scroll?(Int(scrollView.contentOffset.x) / Int(scrollView.frame.width))
     }
 }

@@ -21,6 +21,7 @@ class MainVC: UIViewController {
         tabVC.view.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         tabVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         tabVC.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        tabVC.model = model
         
         view.addSubview(listVC.view)
         listVC.view.translatesAutoresizingMaskIntoConstraints = false
@@ -28,13 +29,21 @@ class MainVC: UIViewController {
         listVC.view.topAnchor.constraint(equalTo: tabVC.view.bottomAnchor).isActive = true
         listVC.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         listVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        listVC.model = model
         
-        model.completion = { [weak self] res in
-            self?.tabVC.update(data: res)
-            self?.listVC.update(data: res)
+        model.completion = { [weak self] (type) in
+            switch type {
+            case .Tab:
+                self?.tabVC.update()
+            case .List:
+                self?.listVC.update()
+            case .All:
+                self?.tabVC.update()
+                self?.listVC.update()
+            }
         }
-        tabVC.selected = { [weak self] idx in self?.model.update(tabIdx: idx) }
-        listVC.scroll = { [weak self] idx in self?.model.update(tabIdx: idx); self?.tabVC.update(idx: idx) }
+        tabVC.selected = { [weak self] idx in self?.model.update(.List, tabIdx: idx) }
+        listVC.scroll  = { [weak self] idx in self?.model.update(.Tab, tabIdx: idx)  }
     }
 
 }
