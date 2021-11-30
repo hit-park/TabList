@@ -11,9 +11,25 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
     
     private let spacing: CGFloat = 20
     
-    private let cv: UICollectionView = {
+    class _CV: UICollectionView {
+        private var completion: (() -> Void)?
+            
+        func completion(_ complete: @escaping () -> Void) {
+            completion = complete
+            super.reloadData()
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            if let block = completion {
+                block()
+            }
+        }
+    }
+    
+    private let cv: _CV = {
         let fl  : UICollectionViewFlowLayout = .init()
-        let _cv : UICollectionView           = .init(frame: .zero, collectionViewLayout: fl)
+        let _cv : _CV           = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
         _cv.backgroundColor         = .white
         fl.scrollDirection          = .horizontal
@@ -58,15 +74,21 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         vUnderline.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         view.addSubview(vSelectline)
-        vSelectline.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        vSelectline.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
-        vSelectline.widthAnchor.constraint(equalToConstant: 21).isActive = true
-        vSelectline.heightAnchor.constraint(equalToConstant: 2).isActive = true
         
         cv.register(TabCell.self, forCellWithReuseIdentifier: "TabCell")
         cv.delegate     = self
         cv.dataSource   = self
-        
+        cv.completion { [weak self] in
+            guard
+                let self = self,
+                let frame: CGRect = self.cv.cellForItem(at: .init(item: self.selectedTabIdx, section: 0))?.frame
+            else { return }
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.3) {
+                    self.vSelectline.frame = CGRect(x: frame.minX, y: frame.height - 2, width: frame.width, height: 2)
+                }
+            }
+        }
     }
     
     func update(data: [ICategoryV2]) {
@@ -97,7 +119,6 @@ class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSou
         guard selectedTabIdx != idx else { return }
         selectedTabIdx = idx
         selected?(idx)
-//        print(cv.cellForItem(at: indexPath)?.frame)
         cv.reloadData()
     }
 }
