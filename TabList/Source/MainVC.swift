@@ -47,3 +47,20 @@ class MainVC: UIViewController {
     }
 
 }
+
+
+class _CV: UICollectionView {
+    private var completion: (() -> Void)?
+        
+    func completion(_ complete: @escaping () -> Void) {
+        completion = complete
+        super.reloadData()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let block = completion {
+            block()
+        }
+    }
+}

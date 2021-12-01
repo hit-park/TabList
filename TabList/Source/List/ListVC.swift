@@ -9,22 +9,6 @@ import UIKit
 
 class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private class _CV: UICollectionView {
-        private var completion: (() -> Void)?
-            
-        func completion(_ complete: @escaping () -> Void) {
-            completion = complete
-            super.reloadData()
-        }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            if let block = completion {
-                block()
-            }
-        }
-    }
-    
     private let cv: _CV = {
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : _CV                        = .init(frame: .zero, collectionViewLayout: fl)
@@ -63,18 +47,12 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-//            let info = model.data?[indexPath.item],
+            let info = model.data?[indexPath.item],
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as? ListCell
         else { return UICollectionViewCell() }
-        cell.contentView.backgroundColor = getRandomColor()
+        cell.items = info.items ?? []
+        cell.update()
         return cell
-    }
-    
-    func getRandomColor() -> UIColor{
-        let randomRed:CGFloat = CGFloat(drand48())
-        let randomGreen:CGFloat = CGFloat(drand48())
-        let randomBlue:CGFloat = CGFloat(drand48())
-        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

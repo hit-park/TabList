@@ -9,22 +9,6 @@ import UIKit
 
 class TabVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    private class _CV: UICollectionView {
-        private var completion: (() -> Void)?
-            
-        func completion(_ complete: @escaping () -> Void) {
-            completion = complete
-            super.reloadData()
-        }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            if let block = completion {
-                block()
-            }
-        }
-    }
-    
     private let cv: _CV = {
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : _CV           = .init(frame: .zero, collectionViewLayout: fl)
