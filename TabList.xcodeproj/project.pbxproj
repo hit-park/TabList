@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1621D359275907DB009E8F86 /* ListGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621D358275907DB009E8F86 /* ListGridView.swift */; };
+		1621D35B275A498B009E8F86 /* ListGridItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1621D35A275A498B009E8F86 /* ListGridItemCell.swift */; };
 		167AB9EC27565B2A00BCB3F8 /* TabCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167AB9EB27565B2A00BCB3F8 /* TabCell.swift */; };
 		167AB9F027565CC800BCB3F8 /* ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167AB9EF27565CC800BCB3F8 /* ListVC.swift */; };
 		167AB9F227565F6900BCB3F8 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167AB9F127565F6900BCB3F8 /* ListCell.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1621D358275907DB009E8F86 /* ListGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGridView.swift; sourceTree = "<group>"; };
+		1621D35A275A498B009E8F86 /* ListGridItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGridItemCell.swift; sourceTree = "<group>"; };
 		167AB9EB27565B2A00BCB3F8 /* TabCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCell.swift; sourceTree = "<group>"; };
 		167AB9EF27565CC800BCB3F8 /* ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListVC.swift; sourceTree = "<group>"; };
 		167AB9F127565F6900BCB3F8 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -77,6 +81,8 @@
 				167AB9EF27565CC800BCB3F8 /* ListVC.swift */,
 				167AB9F127565F6900BCB3F8 /* ListCell.swift */,
 				16E3A1612757B52500A36082 /* LIstItemCell.swift */,
+				1621D358275907DB009E8F86 /* ListGridView.swift */,
+				1621D35A275A498B009E8F86 /* ListGridItemCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -201,11 +207,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1621D35B275A498B009E8F86 /* ListGridItemCell.swift in Sources */,
 				167AB9F027565CC800BCB3F8 /* ListVC.swift in Sources */,
 				9BB2991D2743DBB3003F4379 /* TabVC.swift in Sources */,
 				9B0919E8273BFC8C00B9A713 /* MainVC.swift in Sources */,
 				16E3A1622757B52500A36082 /* LIstItemCell.swift in Sources */,
 				9B0919E4273BFC8C00B9A713 /* AppDelegate.swift in Sources */,
+				1621D359275907DB009E8F86 /* ListGridView.swift in Sources */,
 				9B0919E6273BFC8C00B9A713 /* SceneDelegate.swift in Sources */,
 				167AB9F227565F6900BCB3F8 /* ListCell.swift in Sources */,
 				9B676D09273D452900C3A667 /* Model.swift in Sources */,

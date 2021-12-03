@@ -23,7 +23,6 @@ class ListItemCell: UICollectionViewCell {
         label.textColor = .init(red: 26/255, green: 26/255, blue: 26/255, alpha: 1)
         label.font = .systemFont(ofSize: 14, weight: .bold)
 //        label.backgroundColor = .green
-//        label.text = "카페/베이커리"
         return label
     }()
     
@@ -33,7 +32,6 @@ class ListItemCell: UICollectionViewCell {
         label.textColor = .init(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
         label.font = .systemFont(ofSize: 12, weight: .regular)
 //        label.backgroundColor = .blue
-//        label.text = "패밀리레스토랑, 호텔외식, 기타 프랜차이즈"
         return label
     }()
     
@@ -48,13 +46,14 @@ class ListItemCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 //        contentView.backgroundColor = .orange
+//        contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
         
         contentView.addSubview(iv)
         iv.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
         iv.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
         iv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12).isActive = true
         iv.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        iv.heightAnchor.constraint(equalToConstant: 32).isActive = true
+//        iv.heightAnchor.constraint(equalToConstant: 32).isActive = true
         
         contentView.addSubview(lbTitle)
         lbTitle.leftAnchor.constraint(equalTo: iv.rightAnchor, constant: 12).isActive = true
@@ -76,5 +75,13 @@ class ListItemCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        iv.image = nil
+        lbTitle.text = nil
+        lbDesc.text = nil
+        ivArrow.image = nil
     }
 }

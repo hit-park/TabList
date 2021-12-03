@@ -1,52 +1,58 @@
 //
-//  ListCell.swift
+//  ListGridView.swift
 //  TabList
 //
-//  Created by 박희태 on 2021/11/30.
+//  Created by 박희태 on 2021/12/02.
 //
 
 import UIKit
 
-class ListCell: UICollectionViewCell {
+class ListGridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private let cv: _CV = {
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : _CV           = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
-        _cv.backgroundColor         = .white
-        fl.scrollDirection          = .vertical
-        fl.minimumLineSpacing       = 12
-        fl.sectionInset             = .init(top: 12, left: 0, bottom: 12, right: 0)
-//        fl.estimatedItemSize        = CGSize(width: UIScreen.main.bounds.width, height: 200)
+        _cv.backgroundColor         = .gray
+        fl.scrollDirection          = .horizontal
+        fl.minimumLineSpacing       = 1
+        fl.minimumInteritemSpacing  = 1
+        fl.sectionInset             = .init(top: 1, left: 1, bottom: 1, right: 1)
         return _cv
+    }()
+    
+    private let vLine: UIView = {
+        let view: UIView = .init()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
     }()
     
     var items: [ICategoryV2] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(cv)
-        cv.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        cv.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        cv.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
-        cv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
-        cv.register(ListItemCell.self, forCellWithReuseIdentifier: "ListItemCell")
-        cv.delegate     = self
-        cv.dataSource   = self
-    }
-    
-    func update() {
-        cv.reloadData()
+        self.addSubview(cv)
+        cv.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        cv.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        cv.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        cv.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+        self.addSubview(vLine)
+        vLine.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        vLine.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        vLine.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        vLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
+        cv.delegate = self
+        cv.dataSource = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-}
-
-extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
@@ -78,7 +84,4 @@ extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         return CGSize(width: UIScreen.main.bounds.width, height: 56)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
 }
