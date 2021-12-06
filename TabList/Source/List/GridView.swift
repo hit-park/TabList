@@ -1,13 +1,14 @@
 //
-//  ListGridView.swift
+//  GridView.swift
 //  TabList
 //
 //  Created by 박희태 on 2021/12/02.
 //
 
 import UIKit
+import RxSwift
 
-class ListGridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     private let cv: _CV = {
         let fl  : UICollectionViewFlowLayout = .init()
@@ -32,12 +33,13 @@ class ListGridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(cv)
         cv.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         cv.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         cv.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         cv.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+//        cv.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         self.addSubview(vLine)
         vLine.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
@@ -45,6 +47,7 @@ class ListGridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         vLine.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         vLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
+        cv.register(GridItemCell.self, forCellWithReuseIdentifier: "GridItemCell")
         cv.delegate = self
         cv.dataSource = self
     }
@@ -53,35 +56,29 @@ class ListGridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         fatalError("init(coder:) has not been implemented")
     }
     
+    func update(items: [ICategoryV2]) {
+        let rows: Double = ceil(Double(items.count) / 2.0)
+        let width: CGFloat = UIScreen.main.bounds.width - 40.0
+        let height: Double = (rows * 40.0) + (rows + 1.0)
+        self.frame.size = CGSize(width: width, height: CGFloat(height))
+        self.items = items
+        self.cv.reloadData()
+        print("frame : \(self.bounds), height : \(height)")
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListItemCell", for: indexPath) as? ListItemCell else { return UICollectionViewCell() }
-        
-        DispatchQueue.global().async { [weak self] in
-            guard
-                let self = self,
-                let urlString = self.items[indexPath.item].icon,
-                let url = URL(string: urlString)
-            else { return }
-            if let data = try? Data(contentsOf: url) {
-               DispatchQueue.main.async {
-                   cell.iv.image = UIImage(data: data)
-                   
-               }
-            }
-        }
-        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GridItemCell", for: indexPath) as? GridItemCell else { return UICollectionViewCell() }
         cell.lbTitle.text = self.items[indexPath.item].title
-        cell.lbDesc.text = self.items[indexPath.item].desc
         cell.ivArrow.image = UIImage(named: "iconArrowMoreLine2")
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 56)
+        return CGSize(width: (UIScreen.main.bounds.width - 43) / 2, height: 40)
     }
     
 }

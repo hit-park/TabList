@@ -17,7 +17,6 @@ class ListCell: UICollectionViewCell {
         fl.scrollDirection          = .vertical
         fl.minimumLineSpacing       = 12
         fl.sectionInset             = .init(top: 12, left: 0, bottom: 12, right: 0)
-//        fl.estimatedItemSize        = CGSize(width: UIScreen.main.bounds.width, height: 200)
         return _cv
     }()
     
@@ -71,6 +70,7 @@ extension ListCell: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         cell.lbTitle.text = self.items[indexPath.item].title
         cell.lbDesc.text = self.items[indexPath.item].desc
         cell.ivArrow.image = UIImage(named: "iconArrowMoreLine2")
+        cell.update(items: self.items[indexPath.item].items ?? [])
         return cell
     }
     

@@ -1,5 +1,5 @@
 //
-//  ListGridItemCell.swift
+//  GridItemCell.swift
 //  TabList
 //
 //  Created by 박희태 on 2021/12/03.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ListGridItemCell: UICollectionViewCell {
+class GridItemCell: UICollectionViewCell {
     
     let lbTitle: UILabel = {
         let label: UILabel = .init()
