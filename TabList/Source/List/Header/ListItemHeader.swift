@@ -1,13 +1,20 @@
 //
-//  LIstItemCell.swift
+//  ListItemHeader.swift
 //  TabList
 //
-//  Created by 박희태 on 2021/12/01.
+//  Created by 박희태 on 2021/12/08.
 //
 
 import UIKit
 
-class ListItemCell: UICollectionViewCell {
+class ListItemHeader: UICollectionReusableView {
+    
+    private let vContainer: UIView = {
+        let view: UIView = .init()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .orange
+        return view
+    }()
     
     let iv: UIImageView = {
         let _iv: UIImageView = .init()
@@ -39,60 +46,48 @@ class ListItemCell: UICollectionViewCell {
         return _iv
     }()
     
-    let vGrid: GridView = {
-        let view: GridView = .init()
-        view.backgroundColor = .green
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .orange
+
+        self.addSubview(vContainer)
+        vContainer.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        vContainer.topAnchor.constraint(equalTo: self.topAnchor, constant: 12).isActive = true
+        vContainer.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        vContainer.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
-        contentView.addSubview(iv)
-        iv.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
-        iv.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
-        iv.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12).isActive = true
+        vContainer.addSubview(iv)
+        iv.leftAnchor.constraint(equalTo: vContainer.leftAnchor, constant: 20).isActive = true
+        iv.topAnchor.constraint(equalTo: vContainer.topAnchor, constant: 12).isActive = true
+        iv.bottomAnchor.constraint(equalTo: vContainer.bottomAnchor, constant: -12).isActive = true
         iv.widthAnchor.constraint(equalToConstant: 32).isActive = true
         
-        contentView.addSubview(lbTitle)
+        vContainer.addSubview(lbTitle)
         lbTitle.leftAnchor.constraint(equalTo: iv.rightAnchor, constant: 12).isActive = true
-        lbTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
+        lbTitle.topAnchor.constraint(equalTo: vContainer.topAnchor, constant: 12).isActive = true
 
-        contentView.addSubview(lbDesc)
+        vContainer.addSubview(lbDesc)
         lbDesc.leftAnchor.constraint(equalTo: iv.rightAnchor, constant: 12).isActive = true
         lbDesc.topAnchor.constraint(equalTo: lbTitle.bottomAnchor, constant: 2).isActive = true
-        lbDesc.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12).isActive = true
+        lbDesc.bottomAnchor.constraint(equalTo: vContainer.bottomAnchor, constant: -12).isActive = true
 
-        contentView.addSubview(ivArrow)
+        vContainer.addSubview(ivArrow)
         ivArrow.leftAnchor.constraint(equalTo: lbTitle.rightAnchor, constant: 12).isActive = true
         ivArrow.leftAnchor.constraint(equalTo: lbDesc.rightAnchor, constant: 12).isActive = true
-        ivArrow.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
-        ivArrow.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        ivArrow.rightAnchor.constraint(equalTo: vContainer.rightAnchor, constant: -20).isActive = true
+        ivArrow.centerYAnchor.constraint(equalTo: vContainer.centerYAnchor).isActive = true
         ivArrow.widthAnchor.constraint(equalToConstant: 16).isActive = true
         ivArrow.heightAnchor.constraint(equalToConstant: 16).isActive = true
-        
-        contentView.addSubview(vGrid)
-        vGrid.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
-        vGrid.topAnchor.constraint(equalTo: iv.bottomAnchor, constant: 12).isActive = true
-        vGrid.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
-        vGrid.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12).isActive = true
-//        vGrid.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
-    
-    func update(items: [ICategoryV2]) {
-        vGrid.update(items: items)
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        iv.image = nil
-        lbTitle.text = nil
-        lbDesc.text = nil
-        ivArrow.image = nil
+        iv.image        = nil
+        lbTitle.text    = nil
+        lbDesc.text     = nil
+        ivArrow.image   = nil
     }
 }

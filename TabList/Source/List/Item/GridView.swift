@@ -29,17 +29,20 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
         return view
     }()
     
-    var items: [ICategoryV2] = []
+    private var cvH  : NSLayoutConstraint?
+    private var items: [ICategoryV2] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         self.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(cv)
         cv.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         cv.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         cv.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         cv.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-//        cv.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        cvH = cv.heightAnchor.constraint(equalToConstant: 0)
+        cvH?.isActive = true
         
         self.addSubview(vLine)
         vLine.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
@@ -48,7 +51,7 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
         vLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         cv.register(GridItemCell.self, forCellWithReuseIdentifier: "GridItemCell")
-        cv.delegate = self
+        cv.delegate   = self
         cv.dataSource = self
     }
     
@@ -56,14 +59,15 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(items: [ICategoryV2]) {
-        let rows: Double = ceil(Double(items.count) / 2.0)
-        let width: CGFloat = UIScreen.main.bounds.width - 40.0
-        let height: Double = (rows * 40.0) + (rows + 1.0)
-        self.frame.size = CGSize(width: width, height: CGFloat(height))
+    func update(items: [ICategoryV2]) -> CGFloat {
+        let rows    : Double  = ceil(Double(items.count) / 2.0)
+        let height  : Double  = (rows * 40.0) + (rows + 1.0)
+        self.cvH?.isActive = false
+        self.cvH?.constant = CGFloat(height)
+        self.cvH?.isActive = true
         self.items = items
         self.cv.reloadData()
-        print("frame : \(self.bounds), height : \(height)")
+        return CGFloat(height)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

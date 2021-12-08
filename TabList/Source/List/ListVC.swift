@@ -13,14 +13,20 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : _CV                        = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
-        _cv.backgroundColor = .white
-        _cv.isPagingEnabled = true
-        fl.scrollDirection  = .horizontal
-        fl.minimumLineSpacing = 0
+        _cv.backgroundColor     = .white
+        _cv.isPagingEnabled     = true
+        fl.scrollDirection      = .horizontal
+        fl.minimumLineSpacing   = 0
         return _cv
     }()
     
-    var model: Model!
+//    let vGrid: GridView = {
+//        let view: GridView = .init()
+//        view.backgroundColor = .green
+//        return view
+//    }()
+    
+    var model : Model!
     var scroll: ((Int) -> Void)?
     
     override func viewDidLoad() {
@@ -32,13 +38,19 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         cv.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         cv.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-        cv.register(ListCell.self, forCellWithReuseIdentifier: "ListCell")
+        cv.register(ListPageCell.self, forCellWithReuseIdentifier: "ListPageCell")
         cv.delegate     = self
         cv.dataSource   = self
+        
+//        view.addSubview(vGrid)
+//        vGrid.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+//        vGrid.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+//        vGrid.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     func update() {
         cv.reloadData()
+//        vGrid.update(items: model.data?[0].items?[0].items ?? [])
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -48,7 +60,7 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let info = model.data?[indexPath.item],
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListCell", for: indexPath) as? ListCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListPageCell", for: indexPath) as? ListPageCell
         else { return UICollectionViewCell() }
         cell.items = info.items ?? []
         cell.update()
