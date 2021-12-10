@@ -79,4 +79,8 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
         return CGSize(width: (UIScreen.main.bounds.width - 43) / 2, height: 40)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
+    
 }

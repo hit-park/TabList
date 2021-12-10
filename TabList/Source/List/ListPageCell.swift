@@ -72,6 +72,7 @@ extension ListPageCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
         header.lbTitle.text  = self.items[indexPath.section].title
         header.lbDesc.text   = self.items[indexPath.section].desc
         header.ivArrow.image = UIImage(named: "iconArrowMoreLine2")
+        header.click = { print("header.click") }
         return header
     }
     
@@ -87,10 +88,6 @@ extension ListPageCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return ListItemCell.fittingSize(items: items[indexPath.section].items ?? [])
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
     }
     
 }

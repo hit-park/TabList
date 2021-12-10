@@ -15,6 +15,12 @@ class ListItemHeader: UICollectionReusableView {
         return view
     }()
     
+    private let button: UIButton = {
+        let btn: UIButton = .init()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
     let iv: UIImageView = {
         let _iv: UIImageView = .init()
         _iv.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +50,8 @@ class ListItemHeader: UICollectionReusableView {
         _iv.contentMode = .scaleAspectFill
         return _iv
     }()
+    
+    var click: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,6 +84,17 @@ class ListItemHeader: UICollectionReusableView {
         ivArrow.centerYAnchor.constraint(equalTo: vContainer.centerYAnchor).isActive = true
         ivArrow.widthAnchor.constraint(equalToConstant: 16).isActive = true
         ivArrow.heightAnchor.constraint(equalToConstant: 16).isActive = true
+        
+        self.addSubview(button)
+        button.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        button.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        button.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        button.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+    }
+    
+    @objc func buttonAction() {
+        click?()
     }
 
     required init?(coder: NSCoder) {
@@ -88,5 +107,6 @@ class ListItemHeader: UICollectionReusableView {
         lbTitle.text    = nil
         lbDesc.text     = nil
         ivArrow.image   = nil
+        click           = nil
     }
 }
