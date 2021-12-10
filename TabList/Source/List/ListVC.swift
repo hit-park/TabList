@@ -20,12 +20,6 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         return _cv
     }()
     
-//    let vGrid: GridView = {
-//        let view: GridView = .init()
-//        view.backgroundColor = .green
-//        return view
-//    }()
-    
     var model : Model!
     var scroll: ((Int) -> Void)?
     
@@ -41,16 +35,10 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         cv.register(ListPageCell.self, forCellWithReuseIdentifier: "ListPageCell")
         cv.delegate     = self
         cv.dataSource   = self
-        
-//        view.addSubview(vGrid)
-//        vGrid.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-//        vGrid.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-//        vGrid.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
     
     func update() {
         cv.reloadData()
-//        vGrid.update(items: model.data?[0].items?[0].items ?? [])
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

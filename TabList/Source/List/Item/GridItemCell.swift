@@ -14,7 +14,6 @@ class GridItemCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .init(red: 97/255, green: 97/255, blue: 97/255, alpha: 1)
         label.font = .systemFont(ofSize: 12, weight: .regular)
-        label.backgroundColor = .green
         return label
     }()
     
@@ -22,14 +21,13 @@ class GridItemCell: UICollectionViewCell {
         let _iv: UIImageView = .init()
         _iv.translatesAutoresizingMaskIntoConstraints = false
         _iv.contentMode = .scaleAspectFill
-        _iv.backgroundColor = .brown
         return _iv
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .blue
         
+        contentView.backgroundColor = .white
         contentView.addSubview(lbTitle)
         lbTitle.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
         lbTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
@@ -48,7 +46,19 @@ class GridItemCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        lbTitle.text = nil
+        lbTitle.text  = nil
         ivArrow.image = nil
+    }
+}
+
+class GridItemEmptyCell: UICollectionViewCell {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.backgroundColor = .white
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }

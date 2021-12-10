@@ -12,7 +12,6 @@ class ListItemHeader: UICollectionReusableView {
     private let vContainer: UIView = {
         let view: UIView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .orange
         return view
     }()
     

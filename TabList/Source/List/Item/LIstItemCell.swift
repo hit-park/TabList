@@ -9,15 +9,11 @@ import UIKit
 
 class ListItemCell: UICollectionViewCell {
  
-    let vGrid: GridView = {
-        let view: GridView = .init()
-        view.backgroundColor = .green
-        return view
-    }()
+    let vGrid: GridView = .init()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .blue
+        
         contentView.addSubview(vGrid)
         vGrid.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
         vGrid.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
@@ -41,6 +37,6 @@ class ListItemCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-
+        
     }
 }

@@ -77,7 +77,7 @@ extension ListPageCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListItemCell", for: indexPath) as? ListItemCell else { return UICollectionViewCell() }
-        cell.update(items: items[indexPath.section].items ?? [])
+        let _ = cell.update(items: items[indexPath.section].items ?? [])
         return cell
     }
     

@@ -14,7 +14,7 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
         let fl  : UICollectionViewFlowLayout = .init()
         let _cv : _CV           = .init(frame: .zero, collectionViewLayout: fl)
         _cv.translatesAutoresizingMaskIntoConstraints = false
-        _cv.backgroundColor         = .gray
+        _cv.backgroundColor         = .init(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         fl.scrollDirection          = .horizontal
         fl.minimumLineSpacing       = 1
         fl.minimumInteritemSpacing  = 1
@@ -25,11 +25,10 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
     private let vLine: UIView = {
         let view: UIView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
+        view.backgroundColor = .init(red: 26/255, green: 26/255, blue: 26/255, alpha: 1)
         return view
     }()
     
-    private var cvH  : NSLayoutConstraint?
     private var items: [ICategoryV2] = []
     
     override init(frame: CGRect) {
@@ -41,8 +40,6 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
         cv.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         cv.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         cv.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        cvH = cv.heightAnchor.constraint(equalToConstant: 0)
-        cvH?.isActive = true
         
         self.addSubview(vLine)
         vLine.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
@@ -62,9 +59,6 @@ class GridView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UI
     func update(items: [ICategoryV2]) -> CGFloat {
         let rows    : Double  = ceil(Double(items.count) / 2.0)
         let height  : Double  = (rows * 40.0) + (rows + 1.0)
-        self.cvH?.isActive = false
-        self.cvH?.constant = CGFloat(height)
-        self.cvH?.isActive = true
         self.items = items
         self.cv.reloadData()
         return CGFloat(height)
