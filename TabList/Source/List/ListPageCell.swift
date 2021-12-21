@@ -20,6 +20,8 @@ class ListPageCell: UICollectionViewCell {
     }()
     
     var items: [ICategoryV2] = []
+    var selectedIdx: Int?
+    var headerClick: ((Int) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +54,7 @@ extension ListPageCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return section == selectedIdx ? 1 : 0
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -72,7 +74,7 @@ extension ListPageCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
         header.lbTitle.text  = self.items[indexPath.section].title
         header.lbDesc.text   = self.items[indexPath.section].desc
         header.ivArrow.image = UIImage(named: "iconArrowMoreLine2")
-        header.click = { print("header.click") }
+        header.click         = { [weak self] in self?.headerClick?(indexPath.section) }
         return header
     }
     
@@ -89,5 +91,7 @@ extension ListPageCell: UICollectionViewDelegate, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return ListItemCell.fittingSize(items: items[indexPath.section].items ?? [])
     }
+    
+    
     
 }

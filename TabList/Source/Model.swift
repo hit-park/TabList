@@ -29,9 +29,11 @@ class Model {
     private let URL             : String = "https://joy.yanolja.com/v6-6/leisure/categories/v2"
     private var entity          : [ICategoryV2]?
     private var selectedTabIdx  : Int = 0
+    private var selectedListIdx : Int?
     
     var data    : [ICategoryV2]? { entity }
     var tabIdx  : Int            { selectedTabIdx }
+    var listIdx : Int?           { selectedListIdx }
     
     var completion: ((UpdateType) -> Void)?
     
@@ -54,6 +56,11 @@ class Model {
     
     func update(_ type: UpdateType, tabIdx: Int) {
         selectedTabIdx = tabIdx
+        completion?(type)
+    }
+    
+    func update(_ type: UpdateType, listIdx: Int) {
+        selectedListIdx = selectedListIdx == listIdx ? nil : listIdx
         completion?(type)
     }
     

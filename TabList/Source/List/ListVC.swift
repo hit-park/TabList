@@ -51,6 +51,8 @@ class ListVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListPageCell", for: indexPath) as? ListPageCell
         else { return UICollectionViewCell() }
         cell.items = info.items ?? []
+        cell.selectedIdx = model.listIdx
+        cell.headerClick = { [weak self] idx in self?.model.update(.List, listIdx: idx) }
         cell.update()
         return cell
     }
